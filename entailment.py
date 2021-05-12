@@ -65,7 +65,7 @@ def pl_resolve(ci, cj):
             '''
             If the elements di and dj are complementary
             Then
-              - create a list of all disjuncts not including di and di (remove_item)
+              - create a list of all disjuncts not including di and dj (remove_item)
               - remove all duplicates (remove_dups)
               - join the list into a new clause (associate)
             '''
