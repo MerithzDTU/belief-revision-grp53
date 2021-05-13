@@ -36,6 +36,7 @@ def pl_resolution(bb, sentence):
     '''
     for f in bb:
         clauses += conjuncts(f)
+
     clauses += conjuncts(to_cnf(~sentence))
 
     while True:
