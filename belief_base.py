@@ -34,14 +34,11 @@ class BeliefBase:
         '''
         Add belief to belief base
         '''
-
         query = to_cnf(query)
         # Converts query to CNF form
-
         if check_order(order) is True:
             # is the order correct, if yes we proceed
             if self._update_duplicates(query, order) is False:
-                # checks for duplicates, if found changes the order to the highest one of the two
                 self.beliefs.append(Belief(query, order))
                 # if no duplicates found it simply adds to the beliefs list
 
@@ -54,12 +51,12 @@ class BeliefBase:
         if not pl_resolution([], ~new_query):
             # Does query contradict itself
             if pl_resolution([], new_query):
-                # Is query a tautologi
+                # Is query a tautology
                 order = 1
             else:  # It is not a tautologi, we now need to check for other possible changes in order
                 for belief in self.beliefs:
                     if belief.order > order:
-                        # The current order is more plauseble and the new one, we dont change it.
+                        # The current order is more plausable and the new one, we dont change it.
                         continue
 
                     deg = self.degree(new_query >> belief.query)
@@ -85,8 +82,8 @@ class BeliefBase:
         for belief in self.beliefs:  # Lowers order if new_query and new_query|old_query have same degree
             if belief.order > order:
                 deg = self.degree(new_query)
-                new_or_old = associate(Or, [new_query, belief.query])  # create a new belief
-                # with the new_query and the current query in our list, with or between.
+                new_or_old = associate(Or, [new_query, belief.query])  # create a new belief,
+                # with the new_query and the current query with an or between them.
                 deg_NorO = self.degree(new_or_old)
                 if deg == deg_NorO and (belief.query_str in str(query) or str(query) in belief.query_str):
                     self._temp_order_list.append((belief, order))
@@ -100,7 +97,7 @@ class BeliefBase:
         if not pl_resolution([], ~new_query):
             # Does query contradict itself
             if pl_resolution([], new_query):
-                # Is query a tautologi
+                # Is query a tautology
                 order = 1
             elif order <= deg:
                 self.contract(new_query, order)
@@ -116,42 +113,42 @@ class BeliefBase:
 
     def degree(self, query):
 
-        if pl_resolution([], query):  # is query a tautologi
+        if pl_resolution([], query):  # is query a tautology
             return 1
 
         base = []
-        for order, row in self.sort_beliefs():
+        for order, row in self.sort_beliefs():  # does anything in our belief base entail our query
             base += [b.query for b in row]
             if pl_resolution(base, query):
                 return order
-        return 0
+        return 0  # returns 0 if none of the above is true
 
-    def sort_beliefs(self):
+    def sort_beliefs(self):  # will sort beliefs, with beliefs with orders equal/close to another, grouped up.
 
         result = []
-        last_order = None
+        prev_order = None
 
         for belief in self.beliefs:
-            if last_order is None:  # first run of method
+            if prev_order is None:  # first run of method
                 result.append(belief)
-                last_order = belief.order
+                prev_order = belief.order
                 continue
 
             if isclose(belief.order,
-                       last_order):  # If the orders are equal/close then will belief be put into the same row
+                       prev_order):  # If the orders are equal/close then will belief be put into the same row
                 result.append(belief)
 
             else:
-                yield last_order, result
+                yield prev_order, result
                 result = [belief]
-                last_order = belief.order
+                prev_order = belief.order
 
-        yield last_order, result
+        yield prev_order, result
 
     def _push_temp_list(self):
         for belief, order in self._temp_order_list:
-            self.beliefs.remove(belief)
-            if order > 0:
+            self.beliefs.remove(belief)  # remove the belief from our belief base
+            if order > 0:  # only add it back if the belief has an order of above 0
                 belief.order = order
                 self.beliefs.append(belief)
 
