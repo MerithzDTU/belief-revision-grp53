@@ -1,7 +1,7 @@
 '''
-ET ELLER ANDET OMKRING VI HAR BRUGT
-AIMA-Python bibliotek, MIT LICENSE bla bla bla
-https://github.com/aimacode/aima-python/blob/master/logic.py
+The propositional logic resolution and resolve functions have been adapted from the aima-python repository.
+The AIMA-Python rep. contains implementations of the algorithms from the book:
+                  "Artificial Intelligence: A Modern Approach" by Stuart Russel and Peter Norvig
 
 The MIT License (MIT)
 Copyright (c) 2016 aima-python contributors
