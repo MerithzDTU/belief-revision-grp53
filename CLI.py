@@ -10,17 +10,19 @@ PROMPT = ">>> "
 
 def print_menu():
     print(
-        f"""Actions Available:
+        """Actions Available:
     r: Belief revision
     e: Empty belief base
-    p: Print belief base
     q: Quit
     """
     )
 
 
 def run(bb):
+    print('Curent BeliefBase:')
+    print('------------------')
     print(bb)
+    print('------------------')
     print_menu()
     menu_input = input(PROMPT).lower()
 
@@ -47,10 +49,6 @@ def run(bb):
 
 
 if __name__ == '__main__':
-    #parser = argparse.ArgumentParser(description='Belief base revision CLI tool.')
-    #parser.add_argument('--debug', action='store_true', help='enable debugging')
-    #args = parser.parse_args()
-
     bb = BeliefBase()
     while True:
         run(bb)

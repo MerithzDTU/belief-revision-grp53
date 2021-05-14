@@ -12,7 +12,10 @@ def check_order(order):
 
 
 def _new_order(belief, order):
-    return max[belief.order, order]
+    if belief.order > order:
+        return belief.order
+    else:
+        return order
 
 
 class BeliefBase:
@@ -85,7 +88,7 @@ class BeliefBase:
                 new_or_old = associate(Or, [new_query, belief.query])  # create a new belief
                 # with the new_query and the current query in our list, with or between.
                 deg_NorO = self.degree(new_or_old)
-                if deg == deg_NorO:
+                if deg == deg_NorO and (belief.query_str in str(query) or str(query) in belief.query_str):
                     self._temp_order_list.append((belief, order))
         self._push_temp_list()
 
@@ -168,6 +171,7 @@ class Belief:  # [a, b, a & b, a->c]
     def __init__(self, query, order):
         self.query = query
         self.order = order
+        self.query_str = str(query)
 
     def __repr__(self):
         return f'Belief({self.query}, order={self.order})'
