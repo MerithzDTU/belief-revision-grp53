@@ -42,8 +42,6 @@ def run(bb):
 
     elif menu_input == 'e':
         bb.clear()
-    elif menu_input == 'p':
-        print(bb)
     elif menu_input == 'q':
         exit()
 
