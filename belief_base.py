@@ -22,6 +22,7 @@ class BeliefBase:
 
     def __init__(self):
         self.beliefs = []
+        self._temp_order_list = []
 
     def _update_duplicates(self, query, order):
         for belief in self.beliefs:
