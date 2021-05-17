@@ -1,6 +1,6 @@
 '''
-We have drawn inspiration from a previous, project in github. This was used to set up the paramters of the project
-and helped us alot with the Python syntax,as we were all very to to Python.
+We have drawn inspiration from a previous project in github. This was used to set up the paramters of the project
+and helped us alot with the Python syntax,as we were all very new to to Python.
 -- GITHUB LINK --
 https://github.com/tdiam/belief-revision-engine/blob/master/belief_base.py
 '''
