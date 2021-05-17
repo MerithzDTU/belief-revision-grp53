@@ -10,10 +10,10 @@ PROMPT = ">>> "
 
 def print_menu():
     print(
-        """Actions Available:
-    r: Belief revision
-    e: Empty belief base
-    q: Quit
+        """Menu Options:
+r: Belief revision
+e: Empty belief base
+q: Quit Program
     """
     )
 

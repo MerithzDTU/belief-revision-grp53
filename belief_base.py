@@ -85,7 +85,7 @@ class BeliefBase:
                 new_or_old = associate(Or, [new_query, belief.query])  # create a new belief,
                 # with the new_query and the current query with an or between them.
                 deg_NorO = self.degree(new_or_old)
-                if deg == deg_NorO and (belief.query_str in str(query) or str(query) in belief.query_str):
+                if deg == deg_NorO and (belief.query_str.replace('~', '') in str(query).replace('~', '') or str(query).replace('~', '') in belief.query_str.replace('~', '')):
                     self._temp_order_list.append((belief, order))
         self._push_temp_list()
 
@@ -160,8 +160,8 @@ class BeliefBase:
 
     def __repr__(self):
         if len(self.beliefs) == 0:
-            return 'empty'
-        return '\n'.join(str(x) for x in self.beliefs)
+            return '-------Empty------'
+        return ' '.join(str(x) for x in self.beliefs)
 
 
 class Belief:  # [a, b, a & b, a->c]
@@ -171,4 +171,4 @@ class Belief:  # [a, b, a & b, a->c]
         self.query_str = str(query)
 
     def __repr__(self):
-        return f'Belief({self.query}, order={self.order})'
+        return f'({self.query}, {self.order})'
